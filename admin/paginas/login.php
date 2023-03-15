@@ -3,9 +3,6 @@
         $login = $_POST['login'] ?? null;
         $senha = $_POST['senha'] ?? null;
         
-        if(empty($login) or empty($senha)){
-            mensagemErro("Nao pode ser vazio");
-        }
 
         $sql = "SELECT id,nome,login,senha FROM usuario where login = :login and ativo = 'S' limit 1";
         $consulta = $pdo->prepare($sql);
@@ -14,6 +11,10 @@
         $dados = $consulta->fetch(PDO::FETCH_OBJ);
  
         var_dump($dados);
+
+        if (lisset : $dados->id) {
+            mensagemErro("Usuario nao pode ser encontrado ou invativo")
+        }
         
         //echo $login;
     }
