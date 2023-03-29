@@ -1,22 +1,26 @@
 <?php
-    if($_POST){
-        $login = $_POST["login"] ?? null;
-        $senha = $_POST["senha"] ?? null;
-        
-        if(empty($login) or empty($senha)){
-            mensagemErro("Campos não podem ser vazios!");
-        }
 
-        $sql = "SELECT id,nome,login,senha FROM usuario where login = :login and ativo = 'S' limit 1";
+    if ($_POST) {
+        $login = $_POST["login"] ?? NULL;
+        $senha = $_POST["senha"] ?? NULL;
+
+        $sql = "select id, nome, login, senha
+            from usuario
+            where login = :login AND ativo = 'S'
+            limit 1
+        ";
+
         $consulta = $pdo->prepare($sql);
-        $consulta->bindParam(":login", $login);       
+        $consulta->bindParam(":login", $login);
         $consulta->execute();
 
         $dados = $consulta->fetch(PDO::FETCH_OBJ);
- 
-        if(!isset($dados->id)){
-            mensagemErro("Usuario não encontrado ou inativo.");
-        } else if (!password_verify($senha, $dados->senha)){
+
+        //bill
+        //gates
+        if (!isset($dados->id)) {
+            mensagemErro("Usuário não encontrado ou inativo.");
+        } else if (!password_verify($senha, $dados->senha)) {
             mensagemErro("Senha incorreta.");
         }
 
@@ -26,22 +30,26 @@
             "login" => $dados->login
         );
 
-       
         echo "<script>location.href='paginas/home'</script>";
         exit;
-        
     }
-
-    
 ?>
+<div class="login">
+    <h1 class="text-center">Efetuar Login</h1>
+    <form method="POST">
+        <label for="login">Login:</label>
+        <input type="text" name="login" id="login"
+        class="form-control" required
+        placeholder="Por favor preencha este campo">
+        
+        <br>
 
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha"
+        class="form-control" required
+        placeholder="Por favor preencha este campo">
+        <br>
 
-
-<div class="login rounded bg-light" style="margin-top: 20vh;"> 
-<h1 class="text-center ">Efetuar Login</h1> 
-<form  method="POST"> 
-    <label for="login" class="">Login</label> <input type="text" name="login" id="login" class="form-control" required placeholder="Porfavor digite o usuario"> <br> 
-    <label for="senha">Senha</label> <input type="password" name="senha" id="senha" class="form-control" required placeholder="Porfavor digite a senha"> <br> 
-    <button type="submit" class="btn btn-primary w-100">Login</button> 
-</form> 
+        <button type="submit" class="btn btn-success w-100">Efetuar Login</button>
+    </form>
 </div>

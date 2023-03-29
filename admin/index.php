@@ -1,9 +1,7 @@
-
 <?php
     session_start();
     require "../config.php";
-
-?>    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
     <base href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]; ?>">
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -30,11 +27,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
+    
 
     <!-- Outros Javascript -->
     <script src="js/parsley.min.js"></script>
-
+    
     <script src="js/jquery.inputmask.min.js"></script>
     <script src="js/bindings/inputmask.binding.js"></script>
     <script src="js/jquery.maskMoney.min.js"></script>
@@ -57,34 +54,38 @@
     <link rel="stylesheet" type="text/css" href="vendor/summernote/summernote.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="css/sweetalert2.min.css"></script>
+
 </head>
-<body>
+<body id="page-top">
 
     <?php
         require "funcoes.php";
-        if(!isset($_SESSION["usuario"])){
+
+        if (!isset($_SESSION["usuario"])) {
             require "paginas/login.php";
-        }else{
-            
-            if ( isset($_GET["param"]) ) {
-            $page = explode("/", $_GET["param"]);
+        }else {
+            //print_r($_GET["param"]);
 
-            $pasta = $page[0] ?? NULL;
-            $pagina = $page[1] ?? NULL;
-            $id = $page[2] ?? NULL;
+            if (isset($_GET["param"])) {
+                $page = explode("/", $_GET["param"]);
+                
+                $pasta = $page[0] ?? NULL;
+                $pagina = $page[1] ?? NULL;
+                $id = $page[2] ?? NULL;
 
-            $page = "{$pasta}/{$pagina}";
+                $page = "{$pasta}/{$pagina}";
+            }
+
+            require "header.php";
+
+            if(file_exists("{$page}.php")) {
+                require "{$page}.php";
+            }else {
+                require "paginas/erro.php";
+            }
+
+            require "footer.php";
         }
-        }
-
-        require "header.php"
-    if(file_exists("{$page}.php")){
-        require "{$page}.php";
-    }else{
-        require "paginas/erro.php";
-    }
-    require "footer.php"
-    
     ?>
 
 </body>
