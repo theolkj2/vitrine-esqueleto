@@ -51,5 +51,5 @@
         <br>
 
         <button type="submit" class="btn btn-success w-100">Efetuar Login</button>
-    </form>
+    
 </div>
