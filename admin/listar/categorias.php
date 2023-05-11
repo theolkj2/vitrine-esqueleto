@@ -17,8 +17,11 @@
                 <td><?=$dados->id?></td>
                 <td><?=$dados->nome?></td>
                 <td>
-                    <a href="" class="btn btn btn-warning">Editar</a>
-                    <a href="" class="btn btn btn-danger">Excluir</a>
+                    <a href="cadastros/categorias/<?=$dados->id?>" class="btn btn btn-warning">Editar</a>
+                    <form action="deletar/categorias" method="post">
+                            <input type="hidden" name="id" value="<?php echo"$dados->id"?>">
+                            <input type="submit" class="btn btn-danger" value="Excluir">
+                        </form>
                 </td>
             </tr>
             <?php
