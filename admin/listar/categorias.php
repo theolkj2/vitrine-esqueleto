@@ -18,10 +18,9 @@
                 <td><?=$dados->nome?></td>
                 <td>
                     <a href="cadastros/categorias/<?=$dados->id?>" class="btn btn btn-warning">Editar</a>
-                    <form action="deletar/categorias" method="post">
-                            <input type="hidden" name="id" value="<?php echo"$dados->id"?>">
-                            <input type="submit" class="btn btn-danger" value="Excluir">
-                        </form>
+                    <a href="javascript:excluir(<?=$dados->id?>)" class="btn btn btn-danger" title="Excluir Dados" >
+                        <i class="fas fa-trash" ></i>
+                    </a>
                 </td>
             </tr>
             <?php
@@ -31,3 +30,18 @@
         </table>
     </div>
 </div>
+<script>
+    function excluir(id){
+        Swal.fire({
+            title:'voce deseja excluir esta categoria',
+            showCancelButton: true,
+            confirmButtonText: 'Excluir',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if(result.isConfirmed){
+                location.href='excluir/categorias/'+id;
+                console.log('vc v');
+            }
+        });
+    }
+</script>
